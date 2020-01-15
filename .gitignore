@@ -6,3 +6,5 @@
 /phpunit.xml
 /composer.lock
 /var
+/tests/test*.log
+/tests/logs

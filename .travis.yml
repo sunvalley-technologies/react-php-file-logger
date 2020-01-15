@@ -8,7 +8,9 @@ matrix:
     fast_finish: true
     include:
         - php: 7.2
+          env: DEPENDENCIES="monolog/monolog:^1.23"
         - php: 7.3
+          env: DEPENDENCIES="monolog/monolog:^1.23"
 
 sudo: false
 
