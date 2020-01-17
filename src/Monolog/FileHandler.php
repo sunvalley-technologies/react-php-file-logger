@@ -46,7 +46,7 @@ class FileHandler extends StreamHandler
             return resolve($this->stream);
         }
 
-        return $this->file->open('an', $this->filePermission);
+        return $this->file->open('a', $this->filePermission);
     }
 
     protected function write(array $record): void
