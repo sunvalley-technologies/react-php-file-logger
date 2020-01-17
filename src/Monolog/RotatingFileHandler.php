@@ -186,12 +186,7 @@ class RotatingFileHandler extends FileHandler
             [$this->filename, $this->getDate(), $this->extension],
             $this->filenameFormat
         );
-
-        if (!empty($fileInfo['extension'])) {
-            $timedFilename .= '.' . $fileInfo['extension'];
-        }
-
-
+        
         /** @var FilesystemInterface $filesystem */
         $filesystem = $this->directory->getFilesystem();
 
