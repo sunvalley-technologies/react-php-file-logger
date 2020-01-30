@@ -26,8 +26,5 @@
       "SunValley\\LoopUtil\\FileLogger\\": "src/",
       "SunValley\\LoopUtil\\FileLogger\\Tests\\": "tests/"
     }
-  },
-  "suggest": {
-    "ext-eio": "*"
   }
 }
