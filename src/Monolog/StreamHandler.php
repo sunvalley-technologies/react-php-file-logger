@@ -40,4 +40,16 @@ class StreamHandler extends AbstractProcessingHandler
     {
         return $this->stream;
     }
+
+    /**
+     * Create a monolog logger from this handler
+     *
+     * @param string $name
+     *
+     * @return Logger
+     */
+    public function createLogger(string $name): Logger
+    {
+        return new Logger($name, [$this], [], null);
+    }
 }

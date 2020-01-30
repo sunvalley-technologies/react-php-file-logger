@@ -49,28 +49,21 @@ use SunValley\LoopUtil\FileLogger\Monolog\FileHandler;
 
 $logger = new Logger('name');
 $loop = \React\EventLoop\Factory::create();
-$fs = \React\Filesystem\Filesystem::create($loop);
 
 $logFile = __DIR__ . '/test.log';
-$logger->pushHandler(new FileHandler($fs->file($logFile)));
+// expect log file like test-1999-12-31.log 
+$logger->pushHandler(new FileHandler($loop, $logFile));
 $logger->info('Message!!!');
 $loop->run();
 ```
 
-#### Monolog/RotatingFileHandler
 
-```php
-use Monolog\Logger;
-use SunValley\LoopUtil\FileLogger\Monolog\RotatingFileHandler;
+### Note
 
-$logger = new Logger('name');
-$loop = \React\EventLoop\Factory::create();
-$fs = \React\Filesystem\Filesystem::create($loop);
+Since version 2, this library removed react/filesystem support and `RotatingFileHandler` for simplicity and ordered writes. The old version should still work fine though performance wise keeping some child processes around for some logs might not be that desirable.
 
-$logDirectory = __DIR__ . '/logs';
-$filename ='test'; # ./logs/test-{Y-m-d}.log
-$maxFiles = 10;
-$logger->pushHandler(new RotatingFileHandler($fs->dir($logDirectory), $filename, 10));
-$logger->info('Message!!!');
-$loop->run();
-```
+Since version 2, this library opens the file with `n` (`O_NONBLOCK`) and handles the file with a writable stream. This probably does not work on Windows and might even be not really that non-blocking open but the stream itself will be non-blocking.
+It also by default opens a log file with a date prefix (which can be disabled) and listens for a SIGHUP signal to close and reopen the file stream. This simply replaces a "rotating log file". Use `logrotate` for better rotating of files.
+Since the log file stream will be opened once, this should not actually be a problem for a blocking problem on Windows as well.
+
+   
